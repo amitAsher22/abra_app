@@ -23,14 +23,14 @@ function CityData({ city }) {
     setIconNumber(id)
   }
 
-  const setWeather = async () => {
-    try {
-      const res = await getCurrentWeather(cityKey);
-      setCurrentWeather(res.data[0]); setCurrentIcon(res.data[0].WeatherIcon);
-    } catch (err) {
-      return alert(err);
-    }
-  };
+  // const setWeather = async () => {
+  //   try {
+  //     const res = await getCurrentWeather(cityKey);
+  //     setCurrentWeather(res.data[0]); setCurrentIcon(res.data[0].WeatherIcon);
+  //   } catch (err) {
+  //     return alert(err);
+  //   }
+  // };
 
   const handleAddToFavorites = () => {
     dispatch(addFavorite(city));
@@ -45,7 +45,17 @@ function CityData({ city }) {
   };
 
   useEffect(() => {
-    if (cityKey) setWeather();
+    if (cityKey){
+      const setWeather = async () => {
+        try {
+          const res = await getCurrentWeather(cityKey);
+          setCurrentWeather(res.data[0]); setCurrentIcon(res.data[0].WeatherIcon);
+        } catch (err) {
+          return alert(err);
+        }
+      };
+      setWeather();
+    } 
   },[cityKey]);
 
   if (!cityKey || currentWeather.length === 0) return null;

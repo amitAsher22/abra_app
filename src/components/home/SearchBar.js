@@ -12,17 +12,25 @@ function SearchBar() {
   // const style = { width: "100%", marginTop: "2rem" }; 
 
 
-  const setData = async () => {
-    try {
-      const res = await getSuggestions(searchText);
-      return setHintData(res.data);
-    } catch (err) {
-      return console.log(err);
-    }
-  };
+  // const setData = async () => {
+  //   try {
+  //     const res = await getSuggestions(searchText);
+  //     return setHintData(res.data);
+  //   } catch (err) {
+  //     return console.log(err);
+  //   }
+  // };
 
   useEffect(() => {
     if (searchText.length > 0 && /^[A-Za-z -]*$/.test(searchText)){
+      const setData = async () => {
+        try {
+          const res = await getSuggestions(searchText);
+          return setHintData(res.data);
+        } catch (err) {
+          return console.log(err);
+        }
+      };
       setData();
     } 
   },[searchText]);
